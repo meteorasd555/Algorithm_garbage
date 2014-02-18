@@ -1,10 +1,11 @@
-var tree = [13,23,34,56,18,56,100,68],
-    tree = tree.sort(function(a, b){return a < b});
+var tree = [13,23,34,56,18,56,40,68,12,32,56,78,21,23,45,233];
+    tree.sort(function(a, b){return a > b}).reverse();
+    console.log(tree)
 
-var treeMap = getTreeMap(tree, 800, 600);
+var treeMap = getTreeMap(tree, 150, 50, 800, 600);
 
 
-function getTreeMap(tree, width, height) {
+function getTreeMap(tree, x, y, width, height) {
     var arRect = [], sum = 0, crtR = Infinity, tpR, crtBound,
         w, h, crtVal, crtA = [], tpSum, r, tp, tp2,
         crtDir;
@@ -13,7 +14,7 @@ function getTreeMap(tree, width, height) {
         sum += tree[i];
     }
     r = (width * height) / sum;
-    crtBound = [0, 0, width, height];
+    crtBound = [x, y , width + x, height+ y];
 
     for(i = 0; i < tree.length; i++, tpSum = 0, tp = tp2 = 0) {
         crtVal = tree[i];
@@ -115,11 +116,13 @@ function getTreeMap(tree, width, height) {
     }
 }
 
-// if supported by D3 you can visualize it!
-var svg = d3.select("body").append("svg"),
-    randomColorGen = d3.scale.category20b();
+
+var svg = d3.select("body").append("svg");
+    
+var x = d3.scale.category20b();
 
 svg.selectAll("rect").data(treeMap).enter().append("rect").attr("x",function(d){return d[0]}).attr("y",function(d){return d[1]})
 .attr("width", function(d){return d[2] - d[0]}).attr("height", function(d){return d[3] - d[1]}).attr("fill",function(){
-    return randomColorGen(Math.random() * 100);
+
+    return x(Math.random() * 100);
 });
