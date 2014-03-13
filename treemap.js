@@ -116,7 +116,7 @@ function getTreeMap(tree, x, y, width, height) {
     }
 }
 
-
+// with the help of D3.js,
 var svg = d3.select("body").append("svg");
     
 var x = d3.scale.category20b();
